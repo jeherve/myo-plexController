@@ -9,41 +9,41 @@ enabled=false
 
 -- Fist enters a menu, or play-pause
 function playPause()
-	myo.debug("Enter")
-	myo.keyboard("return","press")
+	myo.debug( "Enter" )
+	myo.keyboard( "return","press" )
 
 	-- Notify Myo (vibrate)
-	myo.vibrate("short")
+	myo.vibrate( "short" )
 end
 
 -- FingersSpread escapes, gets out
 function getOut()
-	myo.debug("Escape")
-	myo.keyboard("escape", "press")
+	myo.debug( "Escape" )
+	myo.keyboard( "escape", "press" )
 end
 
 -- Waving out should be hitting the right arrow
 function goingRight()
-	myo.debug("Next")
-	myo.keyboard("right_arrow", "press")
+	myo.debug( "Next" )
+	myo.keyboard( "right_arrow", "press" )
 end
 
 -- Waving in hits the left arrow
 function goingLeft()
-	myo.debug("Previous")
-	myo.keyboard("left_arrow","press")
+	myo.debug( "Previous" )
+	myo.keyboard( "left_arrow","press" )
 end
 
 -- Waving out when arm is rotated hits the up arrow
 function goingUp()
-	myo.debug("Up")
-	myo.keyboard("up_arrow", "press")
+	myo.debug( "Up" )
+	myo.keyboard( "up_arrow", "press" )
 end
 
 -- Waving in when arm is rotated hits the down arrow
 function goingDown()
-	myo.debug("Down")
-	myo.keyboard("down_arrow", "press")
+	myo.debug( "Down" )
+	myo.keyboard( "down_arrow", "press" )
 end
 
 -- App detection
@@ -58,7 +58,7 @@ end
 
 -- Get roll value in degrees
 function getMyoRollDegrees()
-	local rollValue = math.deg(myo.getRoll())
+	local rollValue = math.deg( myo.getRoll() )
 	return rollValue
 end
 
@@ -85,7 +85,7 @@ end
 -- Detect Myo poses, and assign functions to each one of them
 function onPoseEdge(pose, edge)
 	-- Let's start
-	if (edge == "on") then
+	if ( edge == "on" ) then
 		enabled=true
 		rollReference = getMyoRollDegrees()
 
