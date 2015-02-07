@@ -2,8 +2,14 @@ scriptId = 'hu.jeremy.myo.plexcontroller'
 scriptTitle = "Plex Connector"
 scriptDetailsUrl = ""
 
-rollReference=0
-enabled=false
+centreRoll = 0
+
+deltaRoll = 0
+
+ROLL_DEADZONE = .2
+
+PI = 3.1416
+TWOPI = PI * 2
 
 -- Functions for each pose
 
@@ -56,44 +62,33 @@ end
 
 -- Helpers
 
--- Get roll value in degrees
-function getMyoRollDegrees()
-	local rollValue = math.deg( myo.getRoll() )
-	return rollValue
-end
-
--- Handle rotations that go over 180 degrees
-function degreeDiff(value, base)
-	local diff = value - base
-
-	if diff > 180 then
-		diff = diff - 360
-	elseif diff < -180 then
-		diff = diff + 360
-	end
-
-	return diff
-end
-
 -- Regular check to see arm orientation (roll)
 function onPeriodic()
-	if ( myo.isUnlocked() ) then
-		relativeRoll = degreeDiff( getMyoRollDegrees(), rollReference )
+	local currentRoll = myo.getRoll()
+	deltaRoll = calculateDeltaRadians(currentRoll, centreRoll);
+end
+
+function calculateDeltaRadians(currentRoll, centreRoll)
+	local deltaRoll = currentRoll - centreRoll
+
+	if (deltaRoll > PI) then
+		deltaRoll = deltaRoll - TWOPI
+	elseif(deltaRoll < -PI) then
+		deltaRoll = deltaRoll + TWOPI
 	end
+
+	return deltaRoll
 end
 
 -- Detect Myo poses, and assign functions to each one of them
 function onPoseEdge(pose, edge)
 	-- Let's start
 	if ( edge == "on" ) then
-		enabled=true
-		rollReference = getMyoRollDegrees()
-
 		if ( pose == "fist" ) then
 			playPause()
 		elseif ( pose == "fingersSpread" ) then
 			getOut()
-		elseif ( relativeRoll<-45 ) then
+		elseif ( math.abs(deltaRoll) > ROLL_DEADZONE ) then
 			if ( pose == "waveOut" ) then
 				goingUp()
 			elseif ( pose == "waveIn") then
