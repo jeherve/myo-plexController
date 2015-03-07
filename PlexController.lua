@@ -15,7 +15,7 @@ TWOPI = PI * 2
 
 -- Fist enters a menu, or play-pause
 function playPause()
-	myo.debug( "Enter" )
+	--myo.debug( "Enter" )
 	myo.keyboard( "return","press" )
 
 	-- Notify Myo (vibrate)
@@ -24,31 +24,31 @@ end
 
 -- FingersSpread escapes, gets out
 function getOut()
-	myo.debug( "Escape" )
+	--myo.debug( "Escape" )
 	myo.keyboard( "escape", "press" )
 end
 
 -- Waving out should be hitting the right arrow
 function goingRight()
-	myo.debug( "Next" )
+	--myo.debug( "Next" )
 	myo.keyboard( "right_arrow", "press" )
 end
 
 -- Waving in hits the left arrow
 function goingLeft()
-	myo.debug( "Previous" )
+	--myo.debug( "Previous" )
 	myo.keyboard( "left_arrow","press" )
 end
 
 -- Waving out when arm is rotated hits the up arrow
 function goingUp()
-	myo.debug( "Up" )
+	--myo.debug( "Up" )
 	myo.keyboard( "up_arrow", "press" )
 end
 
 -- Waving in when arm is rotated hits the down arrow
 function goingDown()
-	myo.debug( "Down" )
+	--myo.debug( "Down" )
 	myo.keyboard( "down_arrow", "press" )
 end
 
