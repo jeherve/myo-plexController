@@ -55,8 +55,8 @@ end
 -- App detection
 -- Check that we're in the Plex Home Theater app
 function onForegroundWindowChange(app, title)
-	-- return platform == "MacOS" and app == "com.plexapp.plexhometheater" or
-	--	platform == "Windows" and app == "PlexHomeTheater.exe"
+	return platform == "MacOS" and app == "com.plexapp.plexhometheater" or
+		platform == "Windows" and app == "PlexHomeTheater.exe"
 	return true
 end
 
