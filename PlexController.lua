@@ -6,7 +6,7 @@ centreRoll = 0
 
 deltaRoll = 0
 
-ROLL_DEADZONE = .2
+ROLL_DEADZONE = 1
 
 PI = 3.1416
 TWOPI = PI * 2
@@ -62,6 +62,12 @@ end
 
 -- Helpers
 
+-- Zero the roll on unlock
+function onUnlock()
+	currentRoll = 0
+	deltaRoll = 0
+end
+
 -- Regular check to see arm orientation (roll)
 function onPeriodic()
 	local currentRoll = myo.getRoll()
@@ -88,7 +94,7 @@ function onPoseEdge(pose, edge)
 			playPause()
 		elseif ( pose == "fingersSpread" ) then
 			getOut()
-		elseif ( math.abs(deltaRoll) > ROLL_DEADZONE ) then
+		elseif ( math.abs(deltaRoll) < ROLL_DEADZONE ) then
 			if ( pose == "waveOut" ) then
 				goingUp()
 			elseif ( pose == "waveIn") then
@@ -99,6 +105,9 @@ function onPoseEdge(pose, edge)
 		elseif ( pose == "waveOut" ) then
 			goingRight()
 		end
-	end
 
+	-- Extend unlock and notify user
+	myo.unlock("timed")
+
+	end
 end
