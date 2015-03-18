@@ -57,7 +57,6 @@ end
 function onForegroundWindowChange(app, title)
 	return platform == "MacOS" and app == "com.plexapp.plexhometheater" or
 		platform == "Windows" and app == "PlexHomeTheater.exe"
-	return true
 end
 
 -- Helpers
